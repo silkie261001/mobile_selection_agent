@@ -1,0 +1,1594 @@
+{
+  "phones": [
+    {
+      "id": "iphone-15-pro-max",
+      "name": "iPhone 15 Pro Max",
+      "brand": "Apple",
+      "price": 159900,
+      "display": {
+        "size": 6.7,
+        "type": "Super Retina XDR OLED",
+        "resolution": "2796 x 1290",
+        "refresh_rate": 120
+      },
+      "processor": "A17 Pro",
+      "ram": 8,
+      "storage": [256, 512, 1024],
+      "camera": {
+        "main": "48 MP",
+        "ultrawide": "12 MP",
+        "telephoto": "12 MP (5x optical zoom)",
+        "front": "12 MP",
+        "features": ["OIS", "ProRAW", "ProRes", "Action Mode", "Cinematic Mode"]
+      },
+      "battery": {
+        "capacity": 4441,
+        "charging": "27W wired, 15W MagSafe",
+        "type": "Li-Ion"
+      },
+      "os": "iOS 17",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 221,
+      "colors": ["Natural Titanium", "Blue Titanium", "White Titanium", "Black Titanium"],
+      "release_date": "2023-09",
+      "rating": 4.7,
+      "highlights": ["Best iPhone camera", "Titanium build", "USB-C", "Action button"],
+      "image_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-natural-titanium"
+    },
+    {
+      "id": "iphone-15",
+      "name": "iPhone 15",
+      "brand": "Apple",
+      "price": 79900,
+      "display": {
+        "size": 6.1,
+        "type": "Super Retina XDR OLED",
+        "resolution": "2556 x 1179",
+        "refresh_rate": 60
+      },
+      "processor": "A16 Bionic",
+      "ram": 6,
+      "storage": [128, 256, 512],
+      "camera": {
+        "main": "48 MP",
+        "ultrawide": "12 MP",
+        "front": "12 MP",
+        "features": ["OIS", "Photonic Engine", "Smart HDR 5"]
+      },
+      "battery": {
+        "capacity": 3349,
+        "charging": "20W wired, 15W MagSafe",
+        "type": "Li-Ion"
+      },
+      "os": "iOS 17",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 171,
+      "colors": ["Black", "Blue", "Green", "Yellow", "Pink"],
+      "release_date": "2023-09",
+      "rating": 4.5,
+      "highlights": ["Dynamic Island", "USB-C", "48MP main camera"],
+      "image_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-black"
+    },
+    {
+      "id": "samsung-s24-ultra",
+      "name": "Samsung Galaxy S24 Ultra",
+      "brand": "Samsung",
+      "price": 134999,
+      "display": {
+        "size": 6.8,
+        "type": "Dynamic AMOLED 2X",
+        "resolution": "3120 x 1440",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 8 Gen 3",
+      "ram": 12,
+      "storage": [256, 512, 1024],
+      "camera": {
+        "main": "200 MP",
+        "ultrawide": "12 MP",
+        "telephoto": "50 MP (5x) + 10 MP (3x)",
+        "front": "12 MP",
+        "features": ["OIS", "Space Zoom 100x", "8K Video", "Nightography"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "45W wired, 15W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, One UI 6.1",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 232,
+      "colors": ["Titanium Black", "Titanium Gray", "Titanium Violet", "Titanium Yellow"],
+      "release_date": "2024-01",
+      "rating": 4.8,
+      "highlights": ["200MP camera", "S Pen included", "Titanium frame", "Galaxy AI"],
+      "image_url": "https://images.samsung.com/is/image/samsung/p6pim/in/sm-s928bzkgins/gallery/in-galaxy-s24-ultra-s928-sm-s928bzkgins-thumb-539573054"
+    },
+    {
+      "id": "samsung-s24-plus",
+      "name": "Samsung Galaxy S24+",
+      "brand": "Samsung",
+      "price": 99999,
+      "display": {
+        "size": 6.7,
+        "type": "Dynamic AMOLED 2X",
+        "resolution": "3120 x 1440",
+        "refresh_rate": 120
+      },
+      "processor": "Exynos 2400",
+      "ram": 12,
+      "storage": [256, 512],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "12 MP",
+        "telephoto": "10 MP (3x optical)",
+        "front": "12 MP",
+        "features": ["OIS", "Space Zoom 30x", "4K Video", "Nightography"]
+      },
+      "battery": {
+        "capacity": 4900,
+        "charging": "45W wired, 15W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, One UI 6.1",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 196,
+      "colors": ["Onyx Black", "Marble Gray", "Cobalt Violet", "Amber Yellow"],
+      "release_date": "2024-01",
+      "rating": 4.5,
+      "highlights": ["Large display", "Galaxy AI", "7 years updates"],
+      "image_url": "https://images.samsung.com/is/image/samsung/p6pim/in/sm-s926bzkgins/gallery/in-galaxy-s24-plus-s926-sm-s926bzkgins-thumb-539573054"
+    },
+    {
+      "id": "samsung-s24",
+      "name": "Samsung Galaxy S24",
+      "brand": "Samsung",
+      "price": 74999,
+      "display": {
+        "size": 6.2,
+        "type": "Dynamic AMOLED 2X",
+        "resolution": "2340 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "Exynos 2400",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "12 MP",
+        "telephoto": "10 MP (3x optical)",
+        "front": "12 MP",
+        "features": ["OIS", "Space Zoom 30x", "4K Video"]
+      },
+      "battery": {
+        "capacity": 4000,
+        "charging": "25W wired, 15W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, One UI 6.1",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 167,
+      "colors": ["Onyx Black", "Marble Gray", "Cobalt Violet", "Amber Yellow"],
+      "release_date": "2024-01",
+      "rating": 4.4,
+      "highlights": ["Compact flagship", "Galaxy AI", "7 years updates"],
+      "image_url": "https://images.samsung.com/is/image/samsung/p6pim/in/sm-s921bzkgins/gallery/in-galaxy-s24-s921-sm-s921bzkgins-thumb-539573054"
+    },
+    {
+      "id": "samsung-a55",
+      "name": "Samsung Galaxy A55 5G",
+      "brand": "Samsung",
+      "price": 39999,
+      "display": {
+        "size": 6.6,
+        "type": "Super AMOLED",
+        "resolution": "2340 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "Exynos 1480",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "12 MP",
+        "macro": "5 MP",
+        "front": "32 MP",
+        "features": ["OIS", "Night Mode", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "25W wired",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, One UI 6.1",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP67",
+      "weight": 213,
+      "colors": ["Awesome Iceblue", "Awesome Lilac", "Awesome Lemon", "Awesome Navy"],
+      "release_date": "2024-03",
+      "rating": 4.3,
+      "highlights": ["Metal frame", "4 years updates", "Great value"],
+      "image_url": "https://images.samsung.com/is/image/samsung/p6pim/in/sm-a556elbgins/gallery/in-galaxy-a55-5g-sm-a556-sm-a556elbgins-thumb-539553258"
+    },
+    {
+      "id": "samsung-a35",
+      "name": "Samsung Galaxy A35 5G",
+      "brand": "Samsung",
+      "price": 29999,
+      "display": {
+        "size": 6.6,
+        "type": "Super AMOLED",
+        "resolution": "2340 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "Exynos 1380",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "8 MP",
+        "macro": "5 MP",
+        "front": "13 MP",
+        "features": ["OIS", "Night Mode"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "25W wired",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, One UI 6.1",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP67",
+      "weight": 209,
+      "colors": ["Awesome Iceblue", "Awesome Lilac", "Awesome Lemon", "Awesome Navy"],
+      "release_date": "2024-03",
+      "rating": 4.2,
+      "highlights": ["Budget 5G", "AMOLED display", "Long battery"],
+      "image_url": "https://images.samsung.com/is/image/samsung/p6pim/in/sm-a356elbgins/gallery/in-galaxy-a35-5g-sm-a356-sm-a356elbgins-thumb-539553258"
+    },
+    {
+      "id": "samsung-a15",
+      "name": "Samsung Galaxy A15 5G",
+      "brand": "Samsung",
+      "price": 16999,
+      "display": {
+        "size": 6.5,
+        "type": "Super AMOLED",
+        "resolution": "2340 x 1080",
+        "refresh_rate": 90
+      },
+      "processor": "MediaTek Dimensity 6100+",
+      "ram": 6,
+      "storage": [128],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "5 MP",
+        "macro": "2 MP",
+        "front": "13 MP",
+        "features": ["Night Mode"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "25W wired",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, One UI 6.1",
+      "5g": true,
+      "nfc": false,
+      "water_resistance": "None",
+      "weight": 200,
+      "colors": ["Blue Black", "Light Blue", "Yellow"],
+      "release_date": "2023-12",
+      "rating": 4.0,
+      "highlights": ["Budget 5G", "AMOLED display", "5000mAh battery"],
+      "image_url": "https://images.samsung.com/is/image/samsung/p6pim/in/sm-a156ezbgins/gallery/in-galaxy-a15-5g-sm-a156-sm-a156ezbgins-thumb-539553258"
+    },
+    {
+      "id": "oneplus-12",
+      "name": "OnePlus 12",
+      "brand": "OnePlus",
+      "price": 64999,
+      "display": {
+        "size": 6.82,
+        "type": "LTPO AMOLED",
+        "resolution": "3168 x 1440",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 8 Gen 3",
+      "ram": 12,
+      "storage": [256, 512],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "48 MP",
+        "telephoto": "64 MP (3x periscope)",
+        "front": "32 MP",
+        "features": ["OIS", "Hasselblad", "4K Dolby Vision", "8K Video"]
+      },
+      "battery": {
+        "capacity": 5400,
+        "charging": "100W SUPERVOOC, 50W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, OxygenOS 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP65",
+      "weight": 220,
+      "colors": ["Silky Black", "Flowy Emerald"],
+      "release_date": "2024-01",
+      "rating": 4.6,
+      "highlights": ["100W fast charging", "Hasselblad camera", "5400mAh battery"],
+      "image_url": "https://image01.oneplus.net/ebp/202401/11/1-m00-52-84-ckvxbl2bxdyaed7taaqg9wy6ej0982.png"
+    },
+    {
+      "id": "oneplus-12r",
+      "name": "OnePlus 12R",
+      "brand": "OnePlus",
+      "price": 39999,
+      "display": {
+        "size": 6.78,
+        "type": "LTPO AMOLED",
+        "resolution": "2780 x 1264",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 8 Gen 2",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "8 MP",
+        "macro": "2 MP",
+        "front": "16 MP",
+        "features": ["OIS", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5500,
+        "charging": "100W SUPERVOOC",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, OxygenOS 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP64",
+      "weight": 207,
+      "colors": ["Iron Gray", "Cool Blue"],
+      "release_date": "2024-01",
+      "rating": 4.4,
+      "highlights": ["100W charging", "Flagship chip", "Gaming focus"],
+      "image_url": "https://image01.oneplus.net/ebp/202401/11/1-m00-52-84-ckvxbl2bxdyaed7taaqg9wy6ej0982.png"
+    },
+    {
+      "id": "oneplus-nord-ce4",
+      "name": "OnePlus Nord CE 4",
+      "brand": "OnePlus",
+      "price": 24999,
+      "display": {
+        "size": 6.7,
+        "type": "AMOLED",
+        "resolution": "2412 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 7 Gen 3",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "8 MP",
+        "front": "16 MP",
+        "features": ["OIS", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5500,
+        "charging": "100W SUPERVOOC",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, OxygenOS 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "None",
+      "weight": 184,
+      "colors": ["Dark Chrome", "Celadon Marble"],
+      "release_date": "2024-04",
+      "rating": 4.3,
+      "highlights": ["100W charging", "Slim design", "Great value"],
+      "image_url": "https://image01.oneplus.net/ebp/202404/02/1-m00-58-4e-ckvxbl5tqryaczr9aakqfhptmci884.png"
+    },
+    {
+      "id": "pixel-8-pro",
+      "name": "Google Pixel 8 Pro",
+      "brand": "Google",
+      "price": 106999,
+      "display": {
+        "size": 6.7,
+        "type": "LTPO OLED",
+        "resolution": "2992 x 1344",
+        "refresh_rate": 120
+      },
+      "processor": "Google Tensor G3",
+      "ram": 12,
+      "storage": [128, 256, 512],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "48 MP",
+        "telephoto": "48 MP (5x optical)",
+        "front": "10.5 MP",
+        "features": ["OIS", "Magic Eraser", "Photo Unblur", "Best Take", "Night Sight"]
+      },
+      "battery": {
+        "capacity": 5050,
+        "charging": "30W wired, 23W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 213,
+      "colors": ["Obsidian", "Porcelain", "Bay"],
+      "release_date": "2023-10",
+      "rating": 4.6,
+      "highlights": ["Best Android camera", "7 years updates", "AI features", "Temperature sensor"],
+      "image_url": "https://lh3.googleusercontent.com/xjmMwWg5RkdKD_x2K-f9zXkULKxZM5_XdFjDjVqFJG5FO0Y1lNqvJ4Qa0g"
+    },
+    {
+      "id": "pixel-8",
+      "name": "Google Pixel 8",
+      "brand": "Google",
+      "price": 75999,
+      "display": {
+        "size": 6.2,
+        "type": "OLED",
+        "resolution": "2400 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "Google Tensor G3",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "12 MP",
+        "front": "10.5 MP",
+        "features": ["OIS", "Magic Eraser", "Photo Unblur", "Best Take", "Night Sight"]
+      },
+      "battery": {
+        "capacity": 4575,
+        "charging": "27W wired, 18W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 187,
+      "colors": ["Obsidian", "Hazel", "Rose"],
+      "release_date": "2023-10",
+      "rating": 4.5,
+      "highlights": ["Compact flagship", "7 years updates", "Great camera AI"],
+      "image_url": "https://lh3.googleusercontent.com/xjmMwWg5RkdKD_x2K-f9zXkULKxZM5_XdFjDjVqFJG5FO0Y1lNqvJ4Qa0g"
+    },
+    {
+      "id": "pixel-8a",
+      "name": "Google Pixel 8a",
+      "brand": "Google",
+      "price": 52999,
+      "display": {
+        "size": 6.1,
+        "type": "OLED",
+        "resolution": "2400 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "Google Tensor G3",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "64 MP",
+        "ultrawide": "13 MP",
+        "front": "13 MP",
+        "features": ["OIS", "Magic Eraser", "Photo Unblur", "Night Sight"]
+      },
+      "battery": {
+        "capacity": 4492,
+        "charging": "18W wired, 7.5W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP67",
+      "weight": 188,
+      "colors": ["Obsidian", "Porcelain", "Bay", "Aloe"],
+      "release_date": "2024-05",
+      "rating": 4.4,
+      "highlights": ["Budget Pixel", "7 years updates", "Same AI features"],
+      "image_url": "https://lh3.googleusercontent.com/xjmMwWg5RkdKD_x2K-f9zXkULKxZM5_XdFjDjVqFJG5FO0Y1lNqvJ4Qa0g"
+    },
+    {
+      "id": "xiaomi-14-ultra",
+      "name": "Xiaomi 14 Ultra",
+      "brand": "Xiaomi",
+      "price": 99999,
+      "display": {
+        "size": 6.73,
+        "type": "LTPO AMOLED",
+        "resolution": "3200 x 1440",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 8 Gen 3",
+      "ram": 16,
+      "storage": [512],
+      "camera": {
+        "main": "50 MP (1-inch sensor)",
+        "ultrawide": "50 MP",
+        "telephoto": "50 MP (3.2x) + 50 MP (5x periscope)",
+        "front": "32 MP",
+        "features": ["OIS", "Leica", "8K Video", "Variable aperture f/1.63-4.0"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "90W wired, 80W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, HyperOS",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 224,
+      "colors": ["Black", "White"],
+      "release_date": "2024-02",
+      "rating": 4.7,
+      "highlights": ["1-inch camera sensor", "Leica optics", "Variable aperture", "Photography king"],
+      "image_url": "https://i01.appmifile.com/webfile/globalimg/products/pc/xiaomi-14-ultra/specs-header.png"
+    },
+    {
+      "id": "xiaomi-14",
+      "name": "Xiaomi 14",
+      "brand": "Xiaomi",
+      "price": 69999,
+      "display": {
+        "size": 6.36,
+        "type": "LTPO AMOLED",
+        "resolution": "2670 x 1200",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 8 Gen 3",
+      "ram": 12,
+      "storage": [256, 512],
+      "camera": {
+        "main": "50 MP (Light Fusion 900)",
+        "ultrawide": "50 MP",
+        "telephoto": "50 MP (3.2x)",
+        "front": "32 MP",
+        "features": ["OIS", "Leica", "8K Video"]
+      },
+      "battery": {
+        "capacity": 4610,
+        "charging": "90W wired, 50W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, HyperOS",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 193,
+      "colors": ["Black", "White", "Jade Green"],
+      "release_date": "2024-02",
+      "rating": 4.5,
+      "highlights": ["Compact flagship", "Leica camera", "90W charging"],
+      "image_url": "https://i01.appmifile.com/webfile/globalimg/products/pc/xiaomi-14/specs-header.png"
+    },
+    {
+      "id": "redmi-note-13-pro-plus",
+      "name": "Redmi Note 13 Pro+ 5G",
+      "brand": "Xiaomi",
+      "price": 31999,
+      "display": {
+        "size": 6.67,
+        "type": "AMOLED",
+        "resolution": "2712 x 1220",
+        "refresh_rate": 120
+      },
+      "processor": "MediaTek Dimensity 7200 Ultra",
+      "ram": 8,
+      "storage": [256, 512],
+      "camera": {
+        "main": "200 MP",
+        "ultrawide": "8 MP",
+        "macro": "2 MP",
+        "front": "16 MP",
+        "features": ["OIS", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "120W HyperCharge",
+        "type": "Li-Ion"
+      },
+      "os": "Android 13, MIUI 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 204,
+      "colors": ["Midnight Black", "Moonlight White", "Fusion Purple", "Fusion Blue"],
+      "release_date": "2024-01",
+      "rating": 4.4,
+      "highlights": ["200MP camera", "120W charging", "Curved display", "IP68"],
+      "image_url": "https://i01.appmifile.com/webfile/globalimg/products/pc/redmi-note-13-pro-plus/specs-header.png"
+    },
+    {
+      "id": "redmi-note-13-pro",
+      "name": "Redmi Note 13 Pro 5G",
+      "brand": "Xiaomi",
+      "price": 24999,
+      "display": {
+        "size": 6.67,
+        "type": "AMOLED",
+        "resolution": "2712 x 1220",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 7s Gen 2",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "200 MP",
+        "ultrawide": "8 MP",
+        "macro": "2 MP",
+        "front": "16 MP",
+        "features": ["OIS", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5100,
+        "charging": "67W Turbo",
+        "type": "Li-Ion"
+      },
+      "os": "Android 13, MIUI 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP54",
+      "weight": 187,
+      "colors": ["Midnight Black", "Coral Purple", "Arctic White"],
+      "release_date": "2024-01",
+      "rating": 4.3,
+      "highlights": ["200MP camera", "67W charging", "Great value"],
+      "image_url": "https://i01.appmifile.com/webfile/globalimg/products/pc/redmi-note-13-pro/specs-header.png"
+    },
+    {
+      "id": "redmi-13c",
+      "name": "Redmi 13C",
+      "brand": "Xiaomi",
+      "price": 9999,
+      "display": {
+        "size": 6.74,
+        "type": "IPS LCD",
+        "resolution": "1600 x 720",
+        "refresh_rate": 90
+      },
+      "processor": "MediaTek Helio G85",
+      "ram": 4,
+      "storage": [128],
+      "camera": {
+        "main": "50 MP",
+        "depth": "2 MP",
+        "front": "8 MP",
+        "features": ["Night Mode"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "18W wired",
+        "type": "Li-Po"
+      },
+      "os": "Android 13, MIUI 14",
+      "5g": false,
+      "nfc": false,
+      "water_resistance": "None",
+      "weight": 192,
+      "colors": ["Starlight Black", "Clover Green", "Navy Blue"],
+      "release_date": "2023-12",
+      "rating": 3.9,
+      "highlights": ["Budget phone", "Big display", "5000mAh battery"],
+      "image_url": "https://i01.appmifile.com/webfile/globalimg/products/pc/redmi-13c/specs-header.png"
+    },
+    {
+      "id": "poco-f6-pro",
+      "name": "POCO F6 Pro",
+      "brand": "POCO",
+      "price": 44999,
+      "display": {
+        "size": 6.67,
+        "type": "AMOLED",
+        "resolution": "3200 x 1440",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 8 Gen 2",
+      "ram": 12,
+      "storage": [256, 512],
+      "camera": {
+        "main": "50 MP (Light Fusion 800)",
+        "ultrawide": "8 MP",
+        "macro": "2 MP",
+        "front": "16 MP",
+        "features": ["OIS", "8K Video"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "120W HyperCharge",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, HyperOS",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP54",
+      "weight": 209,
+      "colors": ["Black", "White"],
+      "release_date": "2024-05",
+      "rating": 4.5,
+      "highlights": ["Flagship killer", "120W charging", "SD 8 Gen 2"],
+      "image_url": "https://i01.appmifile.com/webfile/globalimg/products/pc/poco-f6-pro/specs-header.png"
+    },
+    {
+      "id": "poco-x6-pro",
+      "name": "POCO X6 Pro",
+      "brand": "POCO",
+      "price": 26999,
+      "display": {
+        "size": 6.67,
+        "type": "AMOLED",
+        "resolution": "2712 x 1220",
+        "refresh_rate": 120
+      },
+      "processor": "MediaTek Dimensity 8300 Ultra",
+      "ram": 8,
+      "storage": [256],
+      "camera": {
+        "main": "64 MP",
+        "ultrawide": "8 MP",
+        "macro": "2 MP",
+        "front": "16 MP",
+        "features": ["OIS", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "67W Turbo",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, HyperOS",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP54",
+      "weight": 186,
+      "colors": ["Black", "Yellow", "Gray"],
+      "release_date": "2024-01",
+      "rating": 4.3,
+      "highlights": ["Gaming mid-range", "67W charging", "120Hz AMOLED"],
+      "image_url": "https://i01.appmifile.com/webfile/globalimg/products/pc/poco-x6-pro/specs-header.png"
+    },
+    {
+      "id": "vivo-x100-pro",
+      "name": "Vivo X100 Pro",
+      "brand": "Vivo",
+      "price": 89999,
+      "display": {
+        "size": 6.78,
+        "type": "LTPO AMOLED",
+        "resolution": "2800 x 1260",
+        "refresh_rate": 120
+      },
+      "processor": "MediaTek Dimensity 9300",
+      "ram": 16,
+      "storage": [256, 512],
+      "camera": {
+        "main": "50 MP (1-inch sensor)",
+        "ultrawide": "50 MP",
+        "telephoto": "50 MP (4.3x periscope)",
+        "front": "32 MP",
+        "features": ["OIS", "ZEISS T* coating", "8K Video", "V3 imaging chip"]
+      },
+      "battery": {
+        "capacity": 5400,
+        "charging": "100W wired, 50W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, Funtouch OS 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 225,
+      "colors": ["Asteroid Black", "Stardust Blue"],
+      "release_date": "2024-01",
+      "rating": 4.6,
+      "highlights": ["1-inch sensor", "ZEISS optics", "V3 chip", "5400mAh"],
+      "image_url": "https://www.vivo.com/in/products/param/x100-pro"
+    },
+    {
+      "id": "vivo-v30-pro",
+      "name": "Vivo V30 Pro",
+      "brand": "Vivo",
+      "price": 46999,
+      "display": {
+        "size": 6.78,
+        "type": "AMOLED",
+        "resolution": "2800 x 1260",
+        "refresh_rate": 120
+      },
+      "processor": "MediaTek Dimensity 8200",
+      "ram": 8,
+      "storage": [256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "50 MP",
+        "front": "50 MP",
+        "features": ["OIS", "ZEISS Portrait", "4K Video", "Aura Light"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "80W FlashCharge",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, Funtouch OS 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP54",
+      "weight": 187,
+      "colors": ["Peacock Green", "Velvet Red"],
+      "release_date": "2024-03",
+      "rating": 4.3,
+      "highlights": ["Triple 50MP cameras", "ZEISS portraits", "Slim design"],
+      "image_url": "https://www.vivo.com/in/products/param/v30-pro"
+    },
+    {
+      "id": "vivo-t3-ultra",
+      "name": "Vivo T3 Ultra",
+      "brand": "Vivo",
+      "price": 32999,
+      "display": {
+        "size": 6.78,
+        "type": "AMOLED",
+        "resolution": "2800 x 1260",
+        "refresh_rate": 120
+      },
+      "processor": "MediaTek Dimensity 9200+",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "8 MP",
+        "front": "16 MP",
+        "features": ["OIS", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5500,
+        "charging": "80W FlashCharge",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, Funtouch OS 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP64",
+      "weight": 192,
+      "colors": ["Arctic Dawn", "Lunar Gray"],
+      "release_date": "2024-09",
+      "rating": 4.4,
+      "highlights": ["Flagship chip", "5500mAh battery", "Great value"],
+      "image_url": "https://www.vivo.com/in/products/param/t3-ultra"
+    },
+    {
+      "id": "oppo-find-x7-ultra",
+      "name": "OPPO Find X7 Ultra",
+      "brand": "OPPO",
+      "price": 99999,
+      "display": {
+        "size": 6.82,
+        "type": "LTPO AMOLED",
+        "resolution": "3168 x 1440",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 8 Gen 3",
+      "ram": 16,
+      "storage": [256, 512],
+      "camera": {
+        "main": "50 MP (1-inch LYT-900)",
+        "ultrawide": "50 MP",
+        "telephoto": "50 MP (3x) + 50 MP (6x periscope)",
+        "front": "32 MP",
+        "features": ["OIS", "Hasselblad", "4K Dolby Vision", "Dual periscope"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "100W SUPERVOOC, 50W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, ColorOS 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 221,
+      "colors": ["Hasselblad Brown", "Ocean Blue"],
+      "release_date": "2024-01",
+      "rating": 4.7,
+      "highlights": ["Dual periscope cameras", "1-inch sensor", "Hasselblad tuning"],
+      "image_url": "https://image.oppo.com/content/dam/oppo/product-asset-library/find/find-x7-ultra"
+    },
+    {
+      "id": "oppo-reno-11-pro",
+      "name": "OPPO Reno 11 Pro 5G",
+      "brand": "OPPO",
+      "price": 39999,
+      "display": {
+        "size": 6.7,
+        "type": "AMOLED",
+        "resolution": "2412 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "MediaTek Dimensity 8200",
+      "ram": 12,
+      "storage": [256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "8 MP",
+        "telephoto": "32 MP (2x)",
+        "front": "32 MP",
+        "features": ["OIS", "Portrait Mode", "4K Video"]
+      },
+      "battery": {
+        "capacity": 4600,
+        "charging": "80W SUPERVOOC",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, ColorOS 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP65",
+      "weight": 181,
+      "colors": ["Pearl White", "Rock Grey"],
+      "release_date": "2024-01",
+      "rating": 4.3,
+      "highlights": ["Portrait master", "80W charging", "Slim design"],
+      "image_url": "https://image.oppo.com/content/dam/oppo/product-asset-library/reno/reno-11-pro"
+    },
+    {
+      "id": "oppo-a79",
+      "name": "OPPO A79 5G",
+      "brand": "OPPO",
+      "price": 19999,
+      "display": {
+        "size": 6.72,
+        "type": "IPS LCD",
+        "resolution": "2400 x 1080",
+        "refresh_rate": 90
+      },
+      "processor": "MediaTek Dimensity 6020",
+      "ram": 8,
+      "storage": [128],
+      "camera": {
+        "main": "50 MP",
+        "depth": "2 MP",
+        "front": "8 MP",
+        "features": ["AI Enhancement", "Night Mode"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "33W SUPERVOOC",
+        "type": "Li-Po"
+      },
+      "os": "Android 13, ColorOS 13",
+      "5g": true,
+      "nfc": false,
+      "water_resistance": "IPX4",
+      "weight": 193,
+      "colors": ["Mystery Black", "Glowing Green"],
+      "release_date": "2023-11",
+      "rating": 4.0,
+      "highlights": ["Budget 5G", "33W charging", "5000mAh battery"],
+      "image_url": "https://image.oppo.com/content/dam/oppo/product-asset-library/a/a79"
+    },
+    {
+      "id": "realme-gt-6",
+      "name": "Realme GT 6",
+      "brand": "Realme",
+      "price": 40999,
+      "display": {
+        "size": 6.78,
+        "type": "LTPO AMOLED",
+        "resolution": "2780 x 1264",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 8s Gen 3",
+      "ram": 8,
+      "storage": [256],
+      "camera": {
+        "main": "50 MP (Sony LYT-808)",
+        "ultrawide": "8 MP",
+        "telephoto": "50 MP (2x)",
+        "front": "32 MP",
+        "features": ["OIS", "4K Video", "AI Night Mode"]
+      },
+      "battery": {
+        "capacity": 5500,
+        "charging": "120W SUPERVOOC",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, Realme UI 5.0",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP65",
+      "weight": 199,
+      "colors": ["Fluid Silver", "Razor Green"],
+      "release_date": "2024-06",
+      "rating": 4.4,
+      "highlights": ["120W charging", "6000 nits brightness", "Gaming focus"],
+      "image_url": "https://image.realme.com/content/dam/realme/products/gt-6"
+    },
+    {
+      "id": "realme-12-pro-plus",
+      "name": "Realme 12 Pro+ 5G",
+      "brand": "Realme",
+      "price": 29999,
+      "display": {
+        "size": 6.7,
+        "type": "AMOLED",
+        "resolution": "2412 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 7s Gen 2",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "50 MP (Sony IMX890)",
+        "ultrawide": "8 MP",
+        "telephoto": "64 MP (3x periscope)",
+        "front": "32 MP",
+        "features": ["OIS", "4K Video", "Periscope zoom"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "67W SUPERVOOC",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, Realme UI 5.0",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP65",
+      "weight": 190,
+      "colors": ["Navigator Beige", "Submarine Blue"],
+      "release_date": "2024-01",
+      "rating": 4.3,
+      "highlights": ["Periscope camera", "Luxury design", "67W charging"],
+      "image_url": "https://image.realme.com/content/dam/realme/products/12-pro-plus"
+    },
+    {
+      "id": "realme-narzo-70-pro",
+      "name": "Realme Narzo 70 Pro 5G",
+      "brand": "Realme",
+      "price": 19999,
+      "display": {
+        "size": 6.67,
+        "type": "AMOLED",
+        "resolution": "2400 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "MediaTek Dimensity 7050",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "50 MP (Sony IMX882)",
+        "depth": "2 MP",
+        "front": "16 MP",
+        "features": ["OIS", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "67W SUPERVOOC",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, Realme UI 5.0",
+      "5g": true,
+      "nfc": false,
+      "water_resistance": "IP54",
+      "weight": 185,
+      "colors": ["Glass Green", "Glass Black"],
+      "release_date": "2024-03",
+      "rating": 4.2,
+      "highlights": ["Budget flagship", "67W charging", "AMOLED display"],
+      "image_url": "https://image.realme.com/content/dam/realme/products/narzo-70-pro"
+    },
+    {
+      "id": "motorola-edge-50-ultra",
+      "name": "Motorola Edge 50 Ultra",
+      "brand": "Motorola",
+      "price": 59999,
+      "display": {
+        "size": 6.7,
+        "type": "LTPO pOLED",
+        "resolution": "2712 x 1220",
+        "refresh_rate": 144
+      },
+      "processor": "Snapdragon 8s Gen 3",
+      "ram": 12,
+      "storage": [512],
+      "camera": {
+        "main": "50 MP (1-inch sensor)",
+        "ultrawide": "50 MP",
+        "telephoto": "64 MP (3x)",
+        "front": "50 MP",
+        "features": ["OIS", "4K 120fps Video", "moto ai"]
+      },
+      "battery": {
+        "capacity": 4500,
+        "charging": "125W TurboPower, 50W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, Hello UI",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 197,
+      "colors": ["Peach Fuzz", "Nordic Wood", "Forest Gray"],
+      "release_date": "2024-06",
+      "rating": 4.4,
+      "highlights": ["125W charging", "144Hz display", "Wood/Leather back"],
+      "image_url": "https://www.motorola.com/images/edge-50-ultra"
+    },
+    {
+      "id": "motorola-edge-50-pro",
+      "name": "Motorola Edge 50 Pro",
+      "brand": "Motorola",
+      "price": 35999,
+      "display": {
+        "size": 6.7,
+        "type": "pOLED",
+        "resolution": "2712 x 1220",
+        "refresh_rate": 144
+      },
+      "processor": "Snapdragon 7 Gen 3",
+      "ram": 8,
+      "storage": [256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "13 MP",
+        "telephoto": "10 MP (3x)",
+        "front": "50 MP",
+        "features": ["OIS", "4K Video"]
+      },
+      "battery": {
+        "capacity": 4500,
+        "charging": "125W TurboPower, 50W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, Hello UI",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 186,
+      "colors": ["Moonlight Pearl", "Black Beauty", "Luxe Lavender"],
+      "release_date": "2024-04",
+      "rating": 4.2,
+      "highlights": ["125W charging", "Vegan leather", "144Hz display"],
+      "image_url": "https://www.motorola.com/images/edge-50-pro"
+    },
+    {
+      "id": "motorola-g84",
+      "name": "Motorola G84 5G",
+      "brand": "Motorola",
+      "price": 18999,
+      "display": {
+        "size": 6.55,
+        "type": "pOLED",
+        "resolution": "2400 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 695",
+      "ram": 12,
+      "storage": [256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "8 MP",
+        "front": "16 MP",
+        "features": ["OIS", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "33W TurboPower",
+        "type": "Li-Po"
+      },
+      "os": "Android 13",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP52",
+      "weight": 168,
+      "colors": ["Marshmallow Blue", "Viva Magenta"],
+      "release_date": "2023-09",
+      "rating": 4.1,
+      "highlights": ["Slim design", "pOLED display", "Stock Android"],
+      "image_url": "https://www.motorola.com/images/g84"
+    },
+    {
+      "id": "asus-rog-phone-8-pro",
+      "name": "ASUS ROG Phone 8 Pro",
+      "brand": "ASUS",
+      "price": 104999,
+      "display": {
+        "size": 6.78,
+        "type": "LTPO AMOLED",
+        "resolution": "2400 x 1080",
+        "refresh_rate": 165
+      },
+      "processor": "Snapdragon 8 Gen 3",
+      "ram": 16,
+      "storage": [512],
+      "camera": {
+        "main": "50 MP (Sony IMX890)",
+        "ultrawide": "13 MP",
+        "telephoto": "32 MP (3x)",
+        "front": "32 MP",
+        "features": ["OIS", "8K Video", "6-axis gimbal stabilizer"]
+      },
+      "battery": {
+        "capacity": 5500,
+        "charging": "65W wired",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, ROG UI",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 225,
+      "colors": ["Phantom Black", "Rebel Grey"],
+      "release_date": "2024-01",
+      "rating": 4.7,
+      "highlights": ["Ultimate gaming", "165Hz display", "AirTriggers", "RGB lighting"],
+      "image_url": "https://www.asus.com/content/dam/asus/product/gaming/rog-phone-8-pro"
+    },
+    {
+      "id": "asus-rog-phone-8",
+      "name": "ASUS ROG Phone 8",
+      "brand": "ASUS",
+      "price": 74999,
+      "display": {
+        "size": 6.78,
+        "type": "LTPO AMOLED",
+        "resolution": "2400 x 1080",
+        "refresh_rate": 165
+      },
+      "processor": "Snapdragon 8 Gen 3",
+      "ram": 12,
+      "storage": [256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "13 MP",
+        "telephoto": "32 MP (3x)",
+        "front": "32 MP",
+        "features": ["OIS", "8K Video"]
+      },
+      "battery": {
+        "capacity": 5500,
+        "charging": "65W wired",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, ROG UI",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 225,
+      "colors": ["Phantom Black", "Rebel Grey"],
+      "release_date": "2024-01",
+      "rating": 4.5,
+      "highlights": ["Gaming phone", "165Hz display", "AirTriggers"],
+      "image_url": "https://www.asus.com/content/dam/asus/product/gaming/rog-phone-8"
+    },
+    {
+      "id": "nothing-phone-2",
+      "name": "Nothing Phone (2)",
+      "brand": "Nothing",
+      "price": 44999,
+      "display": {
+        "size": 6.7,
+        "type": "LTPO OLED",
+        "resolution": "2412 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 8+ Gen 1",
+      "ram": 12,
+      "storage": [256, 512],
+      "camera": {
+        "main": "50 MP (Sony IMX890)",
+        "ultrawide": "50 MP (Samsung JN1)",
+        "front": "32 MP",
+        "features": ["OIS", "4K Video", "Motion Capture"]
+      },
+      "battery": {
+        "capacity": 4700,
+        "charging": "45W wired, 15W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, Nothing OS 2.5",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP54",
+      "weight": 201,
+      "colors": ["White", "Dark Grey"],
+      "release_date": "2023-07",
+      "rating": 4.4,
+      "highlights": ["Glyph interface", "Unique design", "Clean software"],
+      "image_url": "https://nothing.tech/products/phone-2"
+    },
+    {
+      "id": "nothing-phone-2a",
+      "name": "Nothing Phone (2a)",
+      "brand": "Nothing",
+      "price": 23999,
+      "display": {
+        "size": 6.7,
+        "type": "AMOLED",
+        "resolution": "2412 x 1084",
+        "refresh_rate": 120
+      },
+      "processor": "MediaTek Dimensity 7200 Pro",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "50 MP",
+        "front": "32 MP",
+        "features": ["OIS", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "45W wired",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, Nothing OS 2.5",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP54",
+      "weight": 190,
+      "colors": ["Black", "White", "Milk"],
+      "release_date": "2024-03",
+      "rating": 4.3,
+      "highlights": ["Glyph interface", "Dual 50MP cameras", "Clean software"],
+      "image_url": "https://nothing.tech/products/phone-2a"
+    },
+    {
+      "id": "iqoo-12",
+      "name": "iQOO 12",
+      "brand": "iQOO",
+      "price": 52999,
+      "display": {
+        "size": 6.78,
+        "type": "LTPO AMOLED",
+        "resolution": "3200 x 1440",
+        "refresh_rate": 144
+      },
+      "processor": "Snapdragon 8 Gen 3",
+      "ram": 12,
+      "storage": [256, 512],
+      "camera": {
+        "main": "50 MP (Sony IMX920)",
+        "ultrawide": "50 MP",
+        "telephoto": "64 MP (3x periscope)",
+        "front": "16 MP",
+        "features": ["OIS", "4K Video", "Gimbal stabilization"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "120W FlashCharge",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, Funtouch OS 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP64",
+      "weight": 212,
+      "colors": ["Legend", "Alpha"],
+      "release_date": "2023-12",
+      "rating": 4.6,
+      "highlights": ["Gaming flagship", "144Hz 2K display", "120W charging"],
+      "image_url": "https://www.iqoo.com/in/products/iqoo-12"
+    },
+    {
+      "id": "iqoo-neo-9-pro",
+      "name": "iQOO Neo 9 Pro",
+      "brand": "iQOO",
+      "price": 36999,
+      "display": {
+        "size": 6.78,
+        "type": "LTPO AMOLED",
+        "resolution": "2800 x 1260",
+        "refresh_rate": 144
+      },
+      "processor": "Snapdragon 8 Gen 2",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "50 MP (Sony IMX920)",
+        "ultrawide": "8 MP",
+        "front": "16 MP",
+        "features": ["OIS", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5160,
+        "charging": "120W FlashCharge",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, Funtouch OS 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP64",
+      "weight": 190,
+      "colors": ["Fiery Red", "Dark Storm"],
+      "release_date": "2024-02",
+      "rating": 4.4,
+      "highlights": ["Gaming mid-range", "120W charging", "V2 chip"],
+      "image_url": "https://www.iqoo.com/in/products/iqoo-neo-9-pro"
+    },
+    {
+      "id": "lava-agni-2",
+      "name": "Lava Agni 2",
+      "brand": "Lava",
+      "price": 21999,
+      "display": {
+        "size": 6.78,
+        "type": "AMOLED",
+        "resolution": "2400 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "MediaTek Dimensity 7050",
+      "ram": 8,
+      "storage": [256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "8 MP",
+        "macro": "2 MP",
+        "front": "16 MP",
+        "features": ["OIS", "4K Video"]
+      },
+      "battery": {
+        "capacity": 4700,
+        "charging": "66W TurboCharge",
+        "type": "Li-Ion"
+      },
+      "os": "Android 13",
+      "5g": true,
+      "nfc": false,
+      "water_resistance": "None",
+      "weight": 183,
+      "colors": ["Glass Black", "Glass Blue"],
+      "release_date": "2023-11",
+      "rating": 4.0,
+      "highlights": ["Made in India", "Curved display", "66W charging"],
+      "image_url": "https://www.lava.co.in/products/agni-2"
+    },
+    {
+      "id": "honor-200-pro",
+      "name": "Honor 200 Pro",
+      "brand": "Honor",
+      "price": 57999,
+      "display": {
+        "size": 6.78,
+        "type": "LTPO AMOLED",
+        "resolution": "2700 x 1224",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 8s Gen 3",
+      "ram": 12,
+      "storage": [512],
+      "camera": {
+        "main": "50 MP (H9000 1/1.3-inch)",
+        "ultrawide": "12 MP",
+        "telephoto": "50 MP (2.5x)",
+        "front": "50 MP",
+        "features": ["OIS", "Studio Harcourt Portrait", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5200,
+        "charging": "100W wired, 66W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, MagicOS 8.0",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP65",
+      "weight": 199,
+      "colors": ["Black", "Cyan", "White"],
+      "release_date": "2024-06",
+      "rating": 4.3,
+      "highlights": ["Portrait master", "100W charging", "Harcourt collab"],
+      "image_url": "https://www.hihonor.com/in/phones/honor-200-pro"
+    },
+    {
+      "id": "tecno-phantom-v-flip",
+      "name": "Tecno Phantom V Flip",
+      "brand": "Tecno",
+      "price": 34999,
+      "display": {
+        "size": 6.9,
+        "type": "AMOLED",
+        "resolution": "2640 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "MediaTek Dimensity 8050",
+      "ram": 8,
+      "storage": [256],
+      "camera": {
+        "main": "64 MP",
+        "ultrawide": "13 MP",
+        "front": "32 MP",
+        "features": ["OIS", "4K Video"]
+      },
+      "battery": {
+        "capacity": 4000,
+        "charging": "45W wired",
+        "type": "Li-Ion"
+      },
+      "os": "Android 13, HiOS 13",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IPX4",
+      "weight": 195,
+      "colors": ["Mystic Dawn", "Iconic Black"],
+      "release_date": "2023-09",
+      "rating": 4.0,
+      "highlights": ["Affordable flip", "Large cover screen", "Unique design"],
+      "image_url": "https://www.tecno-mobile.com/phantom-v-flip"
+    },
+    {
+      "id": "infinix-gt-20-pro",
+      "name": "Infinix GT 20 Pro",
+      "brand": "Infinix",
+      "price": 26999,
+      "display": {
+        "size": 6.78,
+        "type": "AMOLED",
+        "resolution": "2436 x 1080",
+        "refresh_rate": 144
+      },
+      "processor": "MediaTek Dimensity 8200 Ultimate",
+      "ram": 12,
+      "storage": [256],
+      "camera": {
+        "main": "108 MP",
+        "ultrawide": "2 MP",
+        "front": "32 MP",
+        "features": ["OIS", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "100W wired",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, XOS 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "None",
+      "weight": 195,
+      "colors": ["Mecha Blue", "Mecha Silver"],
+      "release_date": "2024-05",
+      "rating": 4.1,
+      "highlights": ["Gaming focus", "144Hz display", "100W charging", "RGB lights"],
+      "image_url": "https://www.infinixmobility.com/gt-20-pro"
+    }
+  ],
+  "brands": ["Apple", "Samsung", "OnePlus", "Google", "Xiaomi", "POCO", "Vivo", "OPPO", "Realme", "Motorola", "ASUS", "Nothing", "iQOO", "Lava", "Honor", "Tecno", "Infinix"],
+  "price_ranges": [
+    {"label": "Budget (Under ₹15,000)", "min": 0, "max": 15000},
+    {"label": "Mid-range (₹15,000 - ₹30,000)", "min": 15000, "max": 30000},
+    {"label": "Upper mid-range (₹30,000 - ₹50,000)", "min": 30000, "max": 50000},
+    {"label": "Premium (₹50,000 - ₹80,000)", "min": 50000, "max": 80000},
+    {"label": "Flagship (Above ₹80,000)", "min": 80000, "max": 999999}
+  ],
+  "features": {
+    "camera": ["OIS", "Periscope zoom", "Night mode", "8K Video", "4K Video", "Leica", "Hasselblad", "ZEISS"],
+    "display": ["AMOLED", "LTPO", "120Hz", "144Hz", "165Hz", "Curved"],
+    "battery": ["5000mAh+", "Fast charging 65W+", "Wireless charging"],
+    "special": ["5G", "IP68", "S Pen", "Gaming", "Foldable"]
+  }
+}
