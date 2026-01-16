@@ -1,10 +1,9 @@
 """
-Agent builder for the shopping chat agent using Ollama (local LLM).
+Agent builder for the shopping chat agent with configurable LLM backend (Ollama or Gemini).
 """
 import os
 import json
 import logging
-import httpx
 from openai import OpenAI
 
 from .prompts import get_full_system_prompt, is_adversarial_query, ADVERSARIAL_RESPONSES, get_tech_explanation
@@ -14,31 +13,50 @@ from .tools import get_all_tools
 logger = logging.getLogger(__name__)
 
 
+# LLM Provider Configuration
+# Set USE_GEMINI=true to use Gemini API, otherwise defaults to Ollama
+USE_GEMINI = os.getenv("USE_GEMINI", "false").lower() == "true"
+
 # Ollama Configuration (local LLM)
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434/v1")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.1")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
+
+# Gemini Configuration
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
 
 
 class ShoppingAgent:
     def __init__(self):
-        logger.info(f"Initializing ShoppingAgent with Ollama model: {OLLAMA_MODEL}")
-        logger.debug(f"Ollama base URL: {OLLAMA_BASE_URL}")
+        self.use_gemini = USE_GEMINI
 
-        # Create OpenAI client pointing to Ollama (OpenAI-compatible API)
-        self.client = OpenAI(
-            base_url=OLLAMA_BASE_URL,
-            api_key="ollama",  # Ollama doesn't require an API key, but OpenAI client needs one
-        )
+        if self.use_gemini:
+            if not GEMINI_API_KEY:
+                raise ValueError("GEMINI_API_KEY environment variable is required when USE_GEMINI=true")
+            logger.info(f"Initializing ShoppingAgent with Gemini model: {GEMINI_MODEL}")
+            self.client = OpenAI(
+                base_url=GEMINI_BASE_URL,
+                api_key=GEMINI_API_KEY,
+            )
+            self.model = GEMINI_MODEL
+        else:
+            logger.info(f"Initializing ShoppingAgent with Ollama model: {OLLAMA_MODEL}")
+            logger.debug(f"Ollama base URL: {OLLAMA_BASE_URL}")
+            self.client = OpenAI(
+                base_url=OLLAMA_BASE_URL,
+                api_key="ollama",  # Ollama doesn't require an API key
+            )
+            self.model = OLLAMA_MODEL
 
         self.tools = get_all_tools()
         logger.info(f"Loaded {len(self.tools)} tools: {[t.name for t in self.tools]}")
         self.system_prompt = get_full_system_prompt()
         self.conversation_history: dict[str, list] = {}  # session_id -> messages
-        self.model = OLLAMA_MODEL
 
         # Convert tools to OpenAI format
         self.tool_declarations = self._convert_tools_to_openai_format()
-        logger.info("ShoppingAgent initialized successfully")
+        logger.info(f"ShoppingAgent initialized successfully (Provider: {'Gemini' if self.use_gemini else 'Ollama'})")
 
     def _convert_tools_to_openai_format(self) -> list:
         """Convert LangChain tools to OpenAI function format."""
@@ -231,6 +249,7 @@ class ShoppingAgent:
                 final_response = f"{table_only}\n\n{final_response}"
                 logger.info(f"[{session_id}] Prepended comparison table to response")
 
+
             # Add to history
             self._add_to_history(session_id, message, final_response)
 
@@ -333,39 +352,56 @@ class ShoppingAgent:
                 phones.append(self._format_phone_card(phone))
 
         elif tool_name == "search_phones":
-            max_price = int(tool_args.get("max_price", 0)) if tool_args.get("max_price") else None
+            # Handle the unified search_phones tool with use_case parameter
+            use_case = tool_args.get("use_case", "").lower() if tool_args.get("use_case") else None
+            min_price = None
+            max_price = None
+            min_ram = None
+            if tool_args.get("min_price"):
+                try:
+                    min_price = int(tool_args.get("min_price"))
+                except (ValueError, TypeError):
+                    pass
+            if tool_args.get("max_price"):
+                try:
+                    max_price = int(tool_args.get("max_price"))
+                except (ValueError, TypeError):
+                    pass
+            if tool_args.get("min_ram"):
+                try:
+                    min_ram = int(tool_args.get("min_ram"))
+                except (ValueError, TypeError):
+                    pass
+
+            limit = 5
+            if tool_args.get("limit"):
+                try:
+                    limit = int(tool_args.get("limit"))
+                except (ValueError, TypeError):
+                    pass
+
             brand = tool_args.get("brand")
-            results = phone_service.search_phones(
-                brand=brand,
-                max_price=max_price,
-                limit=int(tool_args.get("limit", 5))
-            )
-            phones = [self._format_phone_card(p) for p in results]
 
-        elif tool_name == "get_best_camera_phones":
-            max_price = int(tool_args.get("max_price")) if tool_args.get("max_price") else None
-            results = phone_service.get_best_camera_phones(max_price=max_price, limit=int(tool_args.get("limit", 5)))
-            phones = [self._format_phone_card(p) for p in results]
+            # Route based on use_case
+            if use_case in ["camera", "photography", "photo", "photos"]:
+                results = phone_service.get_best_camera_phones(max_price=max_price, limit=limit)
+            elif use_case in ["gaming", "game", "games"]:
+                results = phone_service.get_gaming_phones(max_price=max_price, limit=limit)
+            elif use_case in ["battery", "battery life", "long battery"]:
+                results = phone_service.get_best_battery_phones(max_price=max_price, limit=limit)
+            elif use_case in ["compact", "small", "one-hand", "one hand"]:
+                results = phone_service.get_compact_phones(min_price=min_price, max_price=max_price, min_ram=min_ram, limit=limit)
+            elif brand:
+                results = phone_service.get_phones_by_brand(brand, max_price=max_price, limit=limit)
+            else:
+                results = phone_service.search_phones(
+                    brand=brand,
+                    min_price=min_price,
+                    max_price=max_price,
+                    min_ram=min_ram,
+                    limit=limit
+                )
 
-        elif tool_name == "get_best_battery_phones":
-            max_price = int(tool_args.get("max_price")) if tool_args.get("max_price") else None
-            results = phone_service.get_best_battery_phones(max_price=max_price, limit=int(tool_args.get("limit", 5)))
-            phones = [self._format_phone_card(p) for p in results]
-
-        elif tool_name == "get_gaming_phones":
-            max_price = int(tool_args.get("max_price")) if tool_args.get("max_price") else None
-            results = phone_service.get_gaming_phones(max_price=max_price, limit=int(tool_args.get("limit", 5)))
-            phones = [self._format_phone_card(p) for p in results]
-
-        elif tool_name == "get_compact_phones":
-            max_price = int(tool_args.get("max_price")) if tool_args.get("max_price") else None
-            results = phone_service.get_compact_phones(max_price=max_price, limit=int(tool_args.get("limit", 5)))
-            phones = [self._format_phone_card(p) for p in results]
-
-        elif tool_name == "get_phones_by_brand":
-            brand = tool_args.get("brand", "")
-            max_price = int(tool_args.get("max_price")) if tool_args.get("max_price") else None
-            results = phone_service.get_phones_by_brand(brand=brand, max_price=max_price, limit=int(tool_args.get("limit", 10)))
             phones = [self._format_phone_card(p) for p in results]
 
         return phones
@@ -377,7 +413,6 @@ class ShoppingAgent:
             "name": phone["name"],
             "brand": phone["brand"],
             "price": phone["price"],
-            "image_url": phone.get("image_url", ""),
             "display": f"{phone['display']['size']}\" {phone['display']['type']}",
             "camera": phone["camera"]["main"],
             "battery": f"{phone['battery']['capacity']}mAh",
