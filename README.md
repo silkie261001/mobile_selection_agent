@@ -4,8 +4,7 @@ An AI-powered shopping assistant that helps customers discover, compare, and cho
 
 ## Live Demo
 
-- **Frontend**: [Your Vercel URL]
-- **Backend API**: [Your Backend URL]
+- **Frontend**: https://mobile-agent-alpha.vercel.app/
 
 ## Features
 
