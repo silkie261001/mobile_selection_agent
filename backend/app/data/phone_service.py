@@ -221,12 +221,16 @@ class PhoneService:
         scored.sort(key=lambda x: x[1], reverse=True)
         return [p for p, _ in scored[:limit]]
 
-    def get_compact_phones(self, max_price: Optional[int] = None, limit: int = 5) -> list[dict]:
+    def get_compact_phones(self, min_price: Optional[int] = None, max_price: Optional[int] = None, min_ram: Optional[int] = None, limit: int = 5) -> list[dict]:
         """Get compact phones good for one-hand use."""
         results = self.phones.copy()
 
+        if min_price:
+            results = [p for p in results if p["price"] >= min_price]
         if max_price:
             results = [p for p in results if p["price"] <= max_price]
+        if min_ram:
+            results = [p for p in results if p["ram"] >= min_ram]
 
         # Filter phones with smaller displays
         results = [p for p in results if p["display"]["size"] <= 6.4]
