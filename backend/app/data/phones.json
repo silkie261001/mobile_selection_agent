@@ -1575,6 +1575,224 @@
       "rating": 4.1,
       "highlights": ["Gaming focus", "144Hz display", "100W charging", "RGB lights"],
       "image_url": "https://www.infinixmobility.com/gt-20-pro"
+    },
+    {
+      "id": "samsung-s23-fe",
+      "name": "Samsung Galaxy S23 FE",
+      "brand": "Samsung",
+      "price": 49999,
+      "display": {
+        "size": 6.4,
+        "type": "Dynamic AMOLED 2X",
+        "resolution": "2340 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "Exynos 2200",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "12 MP",
+        "telephoto": "8 MP (3x optical)",
+        "front": "10 MP",
+        "features": ["OIS", "Night Mode", "4K Video"]
+      },
+      "battery": {
+        "capacity": 4500,
+        "charging": "25W wired, 15W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, One UI 6",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 209,
+      "colors": ["Graphite", "Cream", "Purple", "Mint"],
+      "release_date": "2023-10",
+      "rating": 4.3,
+      "highlights": ["Compact flagship", "IP68 water resistant", "Wireless charging"],
+      "image_url": ""
+    },
+    {
+      "id": "asus-zenfone-10",
+      "name": "ASUS Zenfone 10",
+      "brand": "ASUS",
+      "price": 49999,
+      "display": {
+        "size": 5.92,
+        "type": "AMOLED",
+        "resolution": "2400 x 1080",
+        "refresh_rate": 144
+      },
+      "processor": "Snapdragon 8 Gen 2",
+      "ram": 8,
+      "storage": [256],
+      "camera": {
+        "main": "50 MP (Sony IMX766)",
+        "ultrawide": "13 MP",
+        "front": "32 MP",
+        "features": ["OIS", "6-axis gimbal", "8K Video"]
+      },
+      "battery": {
+        "capacity": 4300,
+        "charging": "30W wired, 15W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "Android 13",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP68",
+      "weight": 172,
+      "colors": ["Midnight Black", "Starry Blue", "Aurora Green", "Comet White", "Eclipse Red"],
+      "release_date": "2023-06",
+      "rating": 4.5,
+      "highlights": ["Most compact flagship", "One-hand friendly", "Flagship performance", "Gimbal stabilization"],
+      "image_url": ""
+    },
+    {
+      "id": "iphone-se-2022",
+      "name": "iPhone SE (2022)",
+      "brand": "Apple",
+      "price": 43900,
+      "display": {
+        "size": 4.7,
+        "type": "Retina IPS LCD",
+        "resolution": "1334 x 750",
+        "refresh_rate": 60
+      },
+      "processor": "A15 Bionic",
+      "ram": 4,
+      "storage": [64, 128, 256],
+      "camera": {
+        "main": "12 MP",
+        "front": "7 MP",
+        "features": ["OIS", "Portrait Mode", "4K Video", "Deep Fusion"]
+      },
+      "battery": {
+        "capacity": 2018,
+        "charging": "20W wired, 7.5W wireless",
+        "type": "Li-Ion"
+      },
+      "os": "iOS 17",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP67",
+      "weight": 144,
+      "colors": ["Midnight", "Starlight", "Product Red"],
+      "release_date": "2022-03",
+      "rating": 4.2,
+      "highlights": ["Most compact iPhone", "A15 chip", "Touch ID", "Budget Apple"],
+      "image_url": ""
+    },
+    {
+      "id": "samsung-a54",
+      "name": "Samsung Galaxy A54 5G",
+      "brand": "Samsung",
+      "price": 35999,
+      "display": {
+        "size": 6.4,
+        "type": "Super AMOLED",
+        "resolution": "2340 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "Exynos 1380",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "12 MP",
+        "macro": "5 MP",
+        "front": "32 MP",
+        "features": ["OIS", "Night Mode", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "25W wired",
+        "type": "Li-Ion"
+      },
+      "os": "Android 14, One UI 6",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP67",
+      "weight": 202,
+      "colors": ["Awesome Graphite", "Awesome Lime", "Awesome Violet", "Awesome White"],
+      "release_date": "2023-03",
+      "rating": 4.3,
+      "highlights": ["Compact mid-range", "IP67 water resistant", "4 years updates"],
+      "image_url": ""
+    },
+    {
+      "id": "xiaomi-13-lite",
+      "name": "Xiaomi 13 Lite",
+      "brand": "Xiaomi",
+      "price": 29999,
+      "display": {
+        "size": 6.3,
+        "type": "AMOLED",
+        "resolution": "2400 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "Snapdragon 7 Gen 1",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "50 MP",
+        "ultrawide": "8 MP",
+        "macro": "2 MP",
+        "front": "32 MP",
+        "features": ["OIS", "Night Mode", "4K Video"]
+      },
+      "battery": {
+        "capacity": 4500,
+        "charging": "67W HyperCharge",
+        "type": "Li-Ion"
+      },
+      "os": "Android 13, MIUI 14",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "IP53",
+      "weight": 171,
+      "colors": ["Lite Blue", "Lite Pink", "Black"],
+      "release_date": "2023-02",
+      "rating": 4.1,
+      "highlights": ["Compact design", "67W fast charging", "Lightweight"],
+      "image_url": ""
+    },
+    {
+      "id": "realme-11-pro",
+      "name": "Realme 11 Pro",
+      "brand": "Realme",
+      "price": 24999,
+      "display": {
+        "size": 6.4,
+        "type": "AMOLED",
+        "resolution": "2412 x 1080",
+        "refresh_rate": 120
+      },
+      "processor": "MediaTek Dimensity 7050",
+      "ram": 8,
+      "storage": [128, 256],
+      "camera": {
+        "main": "100 MP",
+        "depth": "2 MP",
+        "front": "16 MP",
+        "features": ["OIS", "Night Mode", "4K Video"]
+      },
+      "battery": {
+        "capacity": 5000,
+        "charging": "67W SUPERVOOC",
+        "type": "Li-Ion"
+      },
+      "os": "Android 13, Realme UI 4.0",
+      "5g": true,
+      "nfc": true,
+      "water_resistance": "None",
+      "weight": 175,
+      "colors": ["Sunrise Beige", "Oasis Green", "Astral Black"],
+      "release_date": "2023-06",
+      "rating": 4.2,
+      "highlights": ["Compact 6.4 inch", "100MP camera", "67W charging", "Leather design"],
+      "image_url": ""
     }
   ],
   "brands": ["Apple", "Samsung", "OnePlus", "Google", "Xiaomi", "POCO", "Vivo", "OPPO", "Realme", "Motorola", "ASUS", "Nothing", "iQOO", "Lava", "Honor", "Tecno", "Infinix"],
