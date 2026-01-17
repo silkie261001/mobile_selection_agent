@@ -4,10 +4,16 @@ Agent builder for the shopping chat agent with configurable LLM backend (Ollama 
 import os
 import json
 import logging
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+from typing import AsyncGenerator
 from openai import OpenAI
 
 from .prompts import get_full_system_prompt, is_adversarial_query, ADVERSARIAL_RESPONSES, get_tech_explanation
 from .tools import get_all_tools
+
+# Thread pool for running synchronous OpenAI calls
+_executor = ThreadPoolExecutor(max_workers=4)
 
 
 logger = logging.getLogger(__name__)
@@ -131,7 +137,6 @@ class ShoppingAgent:
             if f"explain {term}" in message_lower or f"what is {term}" in message_lower or f"what's {term}" in message_lower:
                 explanation = get_tech_explanation(term)
                 if explanation:
-                    logger.info(f"[{session_id}] Returning tech explanation for: {term}")
                     self._add_to_history(session_id, message, explanation)
                     return {
                         "response": explanation,
@@ -141,7 +146,6 @@ class ShoppingAgent:
 
         # Get chat history
         chat_history = self._get_chat_history(session_id)
-        logger.debug(f"[{session_id}] Chat history length: {len(chat_history)}")
 
         try:
             # Build messages with history
@@ -203,7 +207,6 @@ class ShoppingAgent:
                             if tool.name == tool_name:
                                 try:
                                     tool_result = tool.invoke(tool_args)
-                                    logger.debug(f"[{session_id}] Tool result: {str(tool_result)[:200]}...")
 
                                     # Collect phones from tool calls for UI cards
                                     phones_from_tool = self._get_phones_from_tool_call(tool_name, tool_args)
@@ -247,8 +250,6 @@ class ShoppingAgent:
                 table_parts = comparison_table.split("## Analysis")
                 table_only = table_parts[0].strip()
                 final_response = f"{table_only}\n\n{final_response}"
-                logger.info(f"[{session_id}] Prepended comparison table to response")
-
 
             # Add to history
             self._add_to_history(session_id, message, final_response)
@@ -262,8 +263,6 @@ class ShoppingAgent:
                     phones.append(p)
             phones = phones[:5]  # Limit to 5 cards
 
-            logger.info(f"[{session_id}] Response generated - length: {len(final_response)}, phones: {len(phones)}, iterations: {iteration}")
-
             return {
                 "response": final_response,
                 "phones": phones,
@@ -271,60 +270,270 @@ class ShoppingAgent:
             }
 
         except Exception as e:
-            error_msg = f"I encountered an error processing your request. Please try again."
             logger.error(f"[{session_id}] Agent error: {e}", exc_info=True)
             return {
-                "response": error_msg,
+                "response": "I encountered an error processing your request. Please try again.",
                 "phones": [],
                 "type": "error"
             }
 
-    def _extract_phones_from_response(self, response: str) -> list[dict]:
-        """Extract phone data from agent response for UI display."""
-        from ..data.phone_service import phone_service
-        import re
+    async def chat_stream(self, message: str, session_id: str = "default") -> AsyncGenerator[dict, None]:
+        """
+        Process a chat message and stream status updates.
+        Uses LLM to generate dynamic thinking messages.
+        Yields status events and final response.
+        """
 
-        phones = []
-        response_lower = response.lower()
+        # Ask LLM to generate a thinking message for the user's query
+        thinking_msg = await self._generate_thinking_message(message)
+        yield {"type": "status", "message": thinking_msg}
 
-        for phone in phone_service.get_all_phones():
-            phone_name = phone['name'].lower()
+        # Check for adversarial queries
+        is_adversarial, response_key = is_adversarial_query(message)
+        if is_adversarial:
+            logger.warning(f"[{session_id}] Adversarial query detected: {response_key}")
+            response = ADVERSARIAL_RESPONSES.get(response_key, ADVERSARIAL_RESPONSES["jailbreak_attempt"])
+            yield {
+                "type": "complete",
+                "response": response,
+                "phones": [],
+                "response_type": "safety_redirect"
+            }
+            return
 
-            # Check for exact match first
-            if phone_name in response_lower:
-                phones.append(self._format_phone_card(phone))
-                continue
+        # Check for technical term explanations
+        tech_terms = ["ois", "eis", "amoled", "ltpo", "refresh rate", "5g", "ip68", "periscope", "tensor"]
+        message_lower = message.lower()
+        for term in tech_terms:
+            if f"explain {term}" in message_lower or f"what is {term}" in message_lower or f"what's {term}" in message_lower:
+                explanation = get_tech_explanation(term)
+                if explanation:
+                    logger.info(f"[{session_id}] Returning tech explanation for: {term}")
+                    self._add_to_history(session_id, message, explanation)
+                    yield {
+                        "type": "complete",
+                        "response": explanation,
+                        "phones": [],
+                        "response_type": "explanation"
+                    }
+                    return
 
-            # Build smart matching patterns for common phone naming conventions
-            # e.g., "OnePlus 12R" should match "oneplus 12r" or "12r"
-            # but "12" alone should NOT match "OnePlus 12" (too ambiguous)
+        # Get chat history
+        chat_history = self._get_chat_history(session_id)
 
-            # Extract brand and model
-            brand = phone['brand'].lower()
-            model = phone_name.replace(brand, "").replace("galaxy", "").strip()
+        try:
+            # Build messages with history
+            messages = [{"role": "system", "content": self.system_prompt}]
+            messages.extend(chat_history)
+            messages.append({"role": "user", "content": message})
 
-            # Try "Brand Model" pattern (e.g., "OnePlus 12R", "Samsung S24")
-            brand_model_pattern = r'\b' + re.escape(brand) + r'\s+' + re.escape(model) + r'\b'
-            if re.search(brand_model_pattern, response_lower):
-                phones.append(self._format_phone_card(phone))
-                continue
+            # Call the model with tools
+            max_iterations = 5
+            iteration = 0
+            final_response = ""
+            collected_phones = []
+            comparison_table = None
 
-            # Try matching the full model if it's distinctive enough (3+ chars, not just numbers)
-            if len(model) >= 3 and not model.isdigit():
-                model_pattern = r'\b' + re.escape(model) + r'\b'
-                if re.search(model_pattern, response_lower):
-                    phones.append(self._format_phone_card(phone))
-                    continue
+            while iteration < max_iterations:
+                loop = asyncio.get_event_loop()
+                response = await loop.run_in_executor(
+                    _executor,
+                    lambda: self.client.chat.completions.create(
+                        model=self.model,
+                        messages=messages,
+                        tools=self.tool_declarations,
+                        tool_choice="auto",
+                        temperature=0.7,
+                        max_tokens=2048,
+                    )
+                )
 
-        # Remove duplicates while preserving order
-        seen = set()
-        unique_phones = []
-        for p in phones:
-            if p['id'] not in seen:
-                seen.add(p['id'])
-                unique_phones.append(p)
+                assistant_message = response.choices[0].message
 
-        return unique_phones[:5]
+                # Check for tool calls
+                if assistant_message.tool_calls:
+                    messages.append({
+                        "role": "assistant",
+                        "content": assistant_message.content or "",
+                        "tool_calls": [
+                            {
+                                "id": tc.id,
+                                "type": "function",
+                                "function": {
+                                    "name": tc.function.name,
+                                    "arguments": tc.function.arguments
+                                }
+                            }
+                            for tc in assistant_message.tool_calls
+                        ]
+                    })
+
+                    # Execute each tool call
+                    for tool_call in assistant_message.tool_calls:
+                        tool_name = tool_call.function.name
+                        try:
+                            tool_args = json.loads(tool_call.function.arguments)
+                        except json.JSONDecodeError:
+                            tool_args = {}
+
+                        # Ask LLM to generate status message for this tool call
+                        tool_status = await self._generate_tool_status(tool_name, tool_args)
+                        yield {"type": "status", "message": tool_status}
+
+                        logger.info(f"[{session_id}] Tool call: {tool_name} with args: {tool_args}")
+
+                        # Execute the tool
+                        tool_result = None
+                        for tool in self.tools:
+                            if tool.name == tool_name:
+                                try:
+                                    tool_result = tool.invoke(tool_args)
+
+                                    phones_from_tool = self._get_phones_from_tool_call(tool_name, tool_args)
+                                    collected_phones.extend(phones_from_tool)
+
+                                    if tool_name == "compare_phones" and tool_result and "---" in str(tool_result):
+                                        comparison_table = str(tool_result)
+
+                                except Exception as e:
+                                    logger.error(f"[{session_id}] Tool error: {e}", exc_info=True)
+                                    tool_result = f"Error executing tool: {str(e)}"
+                                break
+
+                        if tool_result is None:
+                            tool_result = f"Tool {tool_name} not found"
+
+                        messages.append({
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": str(tool_result)
+                        })
+
+                    iteration += 1
+
+                    # Generate a dynamic "analyzing" message
+                    analyze_msg = await self._generate_analysis_status(iteration, max_iterations)
+                    yield {"type": "status", "message": analyze_msg}
+                else:
+                    final_response = assistant_message.content or ""
+                    break
+
+            if not final_response and response:
+                try:
+                    final_response = response.choices[0].message.content or ""
+                except:
+                    final_response = "I found some information for you."
+
+            # If we have a comparison table and LLM didn't include it, prepend it
+            if comparison_table and "---" not in final_response:
+                table_parts = comparison_table.split("## Analysis")
+                table_only = table_parts[0].strip()
+                final_response = f"{table_only}\n\n{final_response}"
+
+            # Add to history
+            self._add_to_history(session_id, message, final_response)
+
+            # Use phones collected from tool calls (deduplicated)
+            seen_ids = set()
+            phones = []
+            for p in collected_phones:
+                if p['id'] not in seen_ids:
+                    seen_ids.add(p['id'])
+                    phones.append(p)
+            phones = phones[:5]
+
+            logger.info(f"[{session_id}] Response generated - length: {len(final_response)}, phones: {len(phones)}, iterations: {iteration}")
+
+            yield {
+                "type": "complete",
+                "response": final_response,
+                "phones": phones,
+                "response_type": "recommendation" if phones else "general"
+            }
+
+        except Exception as e:
+            error_msg = f"I encountered an error processing your request. Please try again."
+            logger.error(f"[{session_id}] Agent error: {e}", exc_info=True)
+            yield {
+                "type": "complete",
+                "response": error_msg,
+                "phones": [],
+                "response_type": "error"
+            }
+
+    async def _generate_thinking_message(self, user_query: str) -> str:
+        """Ask LLM to generate a short thinking/status message for the user's query."""
+        try:
+            loop = asyncio.get_event_loop()
+            response = await loop.run_in_executor(
+                _executor,
+                lambda: self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": "You are a phone shopping assistant. Generate a very short (5-10 words max) friendly status message indicating you're working on the user's query. Be creative and specific to what they asked. Just return the status message ending with '...', nothing else."
+                        },
+                        {"role": "user", "content": user_query}
+                    ],
+                    temperature=0.9,
+                    max_tokens=30,
+                )
+            )
+            return response.choices[0].message.content.strip().strip('"')
+        except Exception as e:
+            logger.warning(f"Failed to generate thinking message: {e}")
+            return "Working on it..."
+
+    async def _generate_tool_status(self, tool_name: str, tool_args: dict) -> str:
+        """Ask LLM to generate a status message for the tool being called."""
+        try:
+            tool_context = f"Tool: {tool_name}, Arguments: {json.dumps(tool_args)}"
+            loop = asyncio.get_event_loop()
+            response = await loop.run_in_executor(
+                _executor,
+                lambda: self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": "Generate a very short (5-10 words max) friendly status message for a phone shopping assistant executing a database search. Be specific about the search criteria. Just return the message ending with '...', nothing else."
+                        },
+                        {"role": "user", "content": tool_context}
+                    ],
+                    temperature=0.9,
+                    max_tokens=30,
+                )
+            )
+            return response.choices[0].message.content.strip().strip('"')
+        except Exception as e:
+            logger.warning(f"Failed to generate tool status: {e}")
+            return "Searching..."
+
+    async def _generate_analysis_status(self, iteration: int, max_iterations: int) -> str:
+        """Ask LLM to generate a status message while analyzing results."""
+        try:
+            context = f"Iteration {iteration} of {max_iterations}, analyzing phone search results"
+            loop = asyncio.get_event_loop()
+            response = await loop.run_in_executor(
+                _executor,
+                lambda: self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": "Generate a very short (5-8 words max) status message for analyzing search results. Be creative. Just return the message ending with '...', nothing else."
+                        },
+                        {"role": "user", "content": context}
+                    ],
+                    temperature=0.9,
+                    max_tokens=20,
+                )
+            )
+            return response.choices[0].message.content.strip().strip('"')
+        except Exception as e:
+            logger.warning(f"Failed to generate analysis status: {e}")
+            return "Analyzing..."
 
     def _get_phones_from_tool_call(self, tool_name: str, tool_args: dict) -> list[dict]:
         """Get phone card data directly from tool call parameters."""

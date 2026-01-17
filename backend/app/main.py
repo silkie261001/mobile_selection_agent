@@ -3,16 +3,17 @@ FastAPI application for the Mobile Shopping Chat Agent.
 """
 import os
 import uuid
+import json
 import logging
 import sys
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from typing import Optional
 
 from .agent.agent_builder import get_agent, ShoppingAgent
-from .data.phone_service import phone_service
 
 
 # Configure logging
@@ -55,14 +56,6 @@ class ChatResponse(BaseModel):
     session_id: str
     phones: list[dict]
     type: str
-
-
-class PhoneSearchRequest(BaseModel):
-    query: Optional[str] = None
-    brand: Optional[str] = None
-    min_price: Optional[int] = None
-    max_price: Optional[int] = None
-    limit: int = 10
 
 
 # Agent instance
@@ -161,96 +154,60 @@ async def clear_chat(session_id: str):
     return {"status": "cleared", "session_id": session_id}
 
 
-@app.get("/api/phones")
-async def get_phones(
-    query: Optional[str] = None,
-    brand: Optional[str] = None,
-    min_price: Optional[int] = None,
-    max_price: Optional[int] = None,
-    limit: int = 20
+@app.get("/api/chat/stream")
+async def chat_stream(
+    message: str = Query(..., description="The user's message"),
+    session_id: Optional[str] = Query(None, description="Session ID for conversation continuity")
 ):
     """
-    Get phones with optional filters.
+    Stream chat responses with real-time LLM-generated status updates.
 
-    This is a direct database query, not using the AI agent.
+    Uses Server-Sent Events (SSE) to stream:
+    - status: LLM-generated thinking/progress messages
+    - complete: Final response with phone recommendations
     """
-    phones = phone_service.search_phones(
-        query=query,
-        brand=brand,
-        min_price=min_price,
-        max_price=max_price,
-        limit=limit
+    if not agent:
+        logger.error("Stream request received but agent not initialized")
+        raise HTTPException(status_code=503, detail="Agent not initialized")
+
+    if not message or not message.strip():
+        logger.warning("Empty message received")
+        raise HTTPException(status_code=400, detail="Message cannot be empty")
+
+    # Generate session ID if not provided
+    sid = session_id or str(uuid.uuid4())
+    logger.info(f"Processing stream request - session: {sid}, message: {message[:100]}...")
+
+    async def event_generator():
+        """Generate SSE events from the agent stream."""
+        try:
+            async for event in agent.chat_stream(message, sid):
+                # Format as SSE
+                event_data = json.dumps({
+                    **event,
+                    "session_id": sid
+                })
+                yield f"data: {event_data}\n\n"
+        except Exception as e:
+            logger.error(f"Stream error - session: {sid}, error: {e}", exc_info=True)
+            error_event = json.dumps({
+                "type": "complete",
+                "response": "I encountered an error. Please try again.",
+                "phones": [],
+                "response_type": "error",
+                "session_id": sid
+            })
+            yield f"data: {error_event}\n\n"
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no"
+        }
     )
-    return {"phones": phones, "count": len(phones)}
-
-
-@app.get("/api/phones/{phone_id}")
-async def get_phone(phone_id: str):
-    """Get details of a specific phone."""
-    phone = phone_service.get_phone_by_id(phone_id)
-    if not phone:
-        phone = phone_service.get_phone_by_name(phone_id)
-
-    if not phone:
-        raise HTTPException(status_code=404, detail="Phone not found")
-
-    return phone
-
-
-@app.get("/api/phones/compare")
-async def compare_phones(phones: str):
-    """
-    Compare multiple phones.
-
-    Args:
-        phones: Comma-separated list of phone IDs or names
-    """
-    phone_list = [p.strip() for p in phones.split(",")]
-    if len(phone_list) < 2:
-        raise HTTPException(status_code=400, detail="Please provide at least 2 phones to compare")
-
-    result = phone_service.compare_phones(phone_list)
-    if len(result) < 2:
-        raise HTTPException(status_code=404, detail="Could not find enough phones to compare")
-
-    return {
-        "phones": result,
-        "comparison_table": phone_service.format_comparison_table(result)
-    }
-
-
-@app.get("/api/brands")
-async def get_brands():
-    """Get all available brands."""
-    return {"brands": phone_service.get_available_brands()}
-
-
-@app.get("/api/recommendations/camera")
-async def get_camera_recommendations(max_price: Optional[int] = None, limit: int = 5):
-    """Get best camera phone recommendations."""
-    phones = phone_service.get_best_camera_phones(max_price=max_price, limit=limit)
-    return {"phones": phones, "category": "camera"}
-
-
-@app.get("/api/recommendations/battery")
-async def get_battery_recommendations(max_price: Optional[int] = None, limit: int = 5):
-    """Get best battery phone recommendations."""
-    phones = phone_service.get_best_battery_phones(max_price=max_price, limit=limit)
-    return {"phones": phones, "category": "battery"}
-
-
-@app.get("/api/recommendations/gaming")
-async def get_gaming_recommendations(max_price: Optional[int] = None, limit: int = 5):
-    """Get best gaming phone recommendations."""
-    phones = phone_service.get_gaming_phones(max_price=max_price, limit=limit)
-    return {"phones": phones, "category": "gaming"}
-
-
-@app.get("/api/recommendations/compact")
-async def get_compact_recommendations(max_price: Optional[int] = None, limit: int = 5):
-    """Get compact phone recommendations."""
-    phones = phone_service.get_compact_phones(max_price=max_price, limit=limit)
-    return {"phones": phones, "category": "compact"}
 
 
 if __name__ == "__main__":

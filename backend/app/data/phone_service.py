@@ -316,21 +316,6 @@ class PhoneService:
         """Get list of all available brands."""
         return self.brands
 
-    def format_phone_summary(self, phone: dict) -> str:
-        """Format phone details as a readable summary."""
-        return f"""
-**{phone['name']}** by {phone['brand']}
-- **Price:** ₹{phone['price']:,}
-- **Display:** {phone['display']['size']}" {phone['display']['type']} @ {phone['display']['refresh_rate']}Hz
-- **Processor:** {phone['processor']}
-- **RAM:** {phone['ram']}GB
-- **Camera:** {phone['camera']['main']} main
-- **Battery:** {phone['battery']['capacity']}mAh, {phone['battery']['charging']}
-- **5G:** {'Yes' if phone['5g'] else 'No'}
-- **Highlights:** {', '.join(phone.get('highlights', []))}
-- **Rating:** {phone.get('rating', 'N/A')}/5
-"""
-
     def format_comparison_table(self, phones: list[dict]) -> str:
         """Format a comparison of multiple phones as a table."""
         if not phones:
