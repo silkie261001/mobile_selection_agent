@@ -1,10 +1,18 @@
 """
 Tools for the shopping chat agent.
-Simplified to 3 core tools - LLM decides how to use them.
+LLM decides how to use these tools based on user queries.
 """
 from langchain.tools import tool
 from typing import Optional
-from ..data.phone_service import phone_service
+from data.phone_service import phone_service
+
+
+def _safe_int(value) -> Optional[int]:
+    """Safely convert to int."""
+    try:
+        return int(value) if value else None
+    except (ValueError, TypeError):
+        return None
 
 
 @tool
@@ -22,8 +30,8 @@ def search_phones(
     Search and find phones based on various criteria.
 
     Args:
-        use_case: The primary purpose for the phone. Options: "camera", "gaming", "battery", "compact"
-        brand: Filter by brand name (e.g., "Samsung", "Apple", "OnePlus")
+        use_case: Primary purpose (camera, gaming, battery, compact, etc.)
+        brand: Filter by brand name
         min_price: Minimum price in rupees
         max_price: Maximum price in rupees
         min_ram: Minimum RAM in GB
@@ -34,69 +42,40 @@ def search_phones(
     Returns:
         List of matching phones with specs
     """
-    # Handle string values from LLM
-    if min_price is not None:
-        try:
-            min_price = int(min_price) if min_price else None
-        except (ValueError, TypeError):
-            min_price = None
-    if max_price is not None:
-        try:
-            max_price = int(max_price) if max_price else None
-        except (ValueError, TypeError):
-            max_price = None
-    if min_ram is not None:
-        try:
-            min_ram = int(min_ram) if min_ram else None
-        except (ValueError, TypeError):
-            min_ram = None
-    if min_battery is not None:
-        try:
-            min_battery = int(min_battery) if min_battery else None
-        except (ValueError, TypeError):
-            min_battery = None
-    if limit is not None:
-        try:
-            limit = int(limit)
-        except (ValueError, TypeError):
-            limit = 5
+    min_price = _safe_int(min_price)
+    max_price = _safe_int(max_price)
+    min_ram = _safe_int(min_ram)
+    min_battery = _safe_int(min_battery)
+    limit = _safe_int(limit) or 5
 
-    # Handle use_case parameter
-    use_case_lower = use_case.lower().strip() if use_case else None
+    use_case_lower = (use_case or "").lower().strip()
 
-    # Route to appropriate search based on use_case
-    if use_case_lower in ["camera", "photography", "photo", "photos"]:
+    # Route to appropriate service method
+    if use_case_lower and any(term in use_case_lower for term in ["camera", "photo", "photography"]):
         phones = phone_service.get_best_camera_phones(max_price=max_price, limit=limit)
-        category = "Best Camera Phones"
-    elif use_case_lower in ["gaming", "game", "games"]:
+        category = "Camera Phones"
+    elif use_case_lower and any(term in use_case_lower for term in ["gaming", "game", "performance"]):
         phones = phone_service.get_gaming_phones(max_price=max_price, limit=limit)
-        category = "Best Gaming Phones"
-    elif use_case_lower in ["battery", "battery life", "long battery"]:
+        category = "Gaming Phones"
+    elif use_case_lower and any(term in use_case_lower for term in ["battery", "long lasting", "endurance"]):
         phones = phone_service.get_best_battery_phones(max_price=max_price, limit=limit)
-        category = "Best Battery Phones"
-    elif use_case_lower in ["compact", "small", "one-hand", "one hand"]:
+        category = "Battery Phones"
+    elif use_case_lower and any(term in use_case_lower for term in ["compact", "small", "one hand", "mini"]):
         phones = phone_service.get_compact_phones(min_price=min_price, max_price=max_price, min_ram=min_ram, limit=limit)
         category = "Compact Phones"
     elif brand:
         phones = phone_service.get_phones_by_brand(brand, max_price=max_price, limit=limit)
         category = f"{brand} Phones"
     else:
-        # General search
         phones = phone_service.search_phones(
-            brand=brand,
-            min_price=min_price,
-            max_price=max_price,
-            min_ram=min_ram,
-            has_5g=has_5g,
-            min_battery=min_battery,
-            limit=limit
+            brand=brand, min_price=min_price, max_price=max_price,
+            min_ram=min_ram, has_5g=has_5g, min_battery=min_battery, limit=limit
         )
         category = "Phones"
 
     if not phones:
-        return "No phones found matching your criteria. Try adjusting your filters."
+        return "No phones found matching your criteria."
 
-    # Build output
     budget_text = f" under ₹{max_price:,}" if max_price else ""
     output = f"# {category}{budget_text}\n\nFound {len(phones)} phones:\n\n"
 
@@ -121,20 +100,16 @@ def get_phone_details(phone_name: str) -> str:
     Get comprehensive details about a specific phone.
 
     Args:
-        phone_name: The name of the phone (e.g., "iPhone 15 Pro", "Samsung Galaxy S24 Ultra", "OnePlus 12")
+        phone_name: The name of the phone to look up
 
     Returns:
         Complete specifications and details of the phone
     """
-    # Try by ID first, then by name
-    phone = phone_service.get_phone_by_id(phone_name)
-    if not phone:
-        phone = phone_service.get_phone_by_name(phone_name)
+    phone = phone_service.get_phone_by_id(phone_name) or phone_service.get_phone_by_name(phone_name)
 
     if not phone:
-        # Try to suggest similar phones
         available = phone_service.get_available_brands()
-        return f"Phone '{phone_name}' not found. Available brands: {', '.join(available)}. Try searching with a different name."
+        return f"Phone '{phone_name}' not found. Available brands: {', '.join(available)}."
 
     camera = phone['camera']
     camera_specs = f"Main: {camera['main']}"
@@ -144,7 +119,7 @@ def get_phone_details(phone_name: str) -> str:
         camera_specs += f" | Telephoto: {camera['telephoto']}"
     camera_specs += f" | Front: {camera['front']}"
 
-    output = f"""# {phone['name']}
+    return f"""# {phone['name']}
 
 ## Basic Info
 - **Brand:** {phone['brand']}
@@ -181,7 +156,6 @@ def get_phone_details(phone_name: str) -> str:
 ## Highlights
 {chr(10).join('- ' + h for h in phone.get('highlights', []))}
 """
-    return output
 
 
 @tool
@@ -191,59 +165,54 @@ def compare_phones(phone_names: str) -> str:
 
     Args:
         phone_names: Comma-separated list of phone names to compare
-                    (e.g., "iPhone 15, Samsung S24, OnePlus 12")
 
     Returns:
-        Comparison table with all specifications and analysis
+        Comparison table with specifications for LLM to analyze
     """
     names = [n.strip() for n in phone_names.split(",")]
 
     if len(names) < 2:
-        return "Please provide at least 2 phone names separated by commas to compare."
+        return "Please provide at least 2 phone names separated by commas."
     if len(names) > 4:
-        return "Please compare a maximum of 4 phones at a time for readability."
+        return "Please compare a maximum of 4 phones."
 
     phones = phone_service.compare_phones(names)
 
     if len(phones) < 2:
         found = [p['name'] for p in phones] if phones else []
         available = phone_service.get_available_brands()
-        return f"Could only find {len(phones)} phone(s): {found}. Available brands: {', '.join(available)}. Please check the names and try again."
+        return f"Found only {len(phones)} phone(s): {found}. Available brands: {', '.join(available)}."
 
-    # Create comparison table
     table = phone_service.format_comparison_table(phones)
-
-    # Add analysis
-    analysis = "\n## Analysis\n\n"
-
-    # Price comparison
-    prices = [(p['name'], p['price']) for p in phones]
-    prices.sort(key=lambda x: x[1])
-    analysis += f"**Best Value:** {prices[0][0]} is the most affordable at ₹{prices[0][1]:,}\n\n"
-
-    # Camera comparison
-    best_camera = max(phones, key=lambda p: int(p['camera']['main'].split()[0]))
-    analysis += f"**Best Camera (by MP):** {best_camera['name']} with {best_camera['camera']['main']}\n\n"
-
-    # Battery comparison
-    best_battery = max(phones, key=lambda p: p['battery']['capacity'])
-    analysis += f"**Best Battery:** {best_battery['name']} with {best_battery['battery']['capacity']}mAh\n\n"
-
-    # Performance comparison
-    flagships = ["snapdragon 8 gen 3", "a17 pro", "a18 pro", "dimensity 9300", "dimensity 9400"]
-    for p in phones:
-        if any(f in p['processor'].lower() for f in flagships):
-            analysis += f"**Best Performance:** {p['name']} with {p['processor']}\n\n"
-            break
-
-    return table + analysis
+    return f"{table}\n\nAnalyze the comparison above and provide insights based only on this data."
 
 
-# Export all tools
+@tool
+def explain_mobile_tech(query: str) -> str:
+    """
+    Explain mobile phone technology terms and concepts.
+    Use only for mobile phone related technical terms.
+    Do not use for non-mobile topics.
+
+    Args:
+        query: The technical question about mobile phones
+
+    Returns:
+        Query with structure guidelines for LLM to explain
+    """
+    return f"""Explain this mobile phone technology: {query}
+
+Provide a clear, educational explanation following this structure:
+1. **Full Form**: If it's an acronym, state what it stands for
+2. **What It Is**: Explain in simple, non-technical language
+3. **How It Works**: Brief explanation (1-2 sentences)
+4. **Why It Matters**: How it affects user experience on a phone
+5. **Comparison** (if applicable): If user asked "X vs Y", explain key differences
+6. **Verdict**: Practical recommendation for typical phone users
+
+Keep explanation focused on mobile phones only. Use bullet points for clarity."""
+
+
 def get_all_tools():
-    """Get all available tools for the agent."""
-    return [
-        search_phones,
-        get_phone_details,
-        compare_phones,
-    ]
+    """Get all available tools."""
+    return [search_phones, get_phone_details, compare_phones, explain_mobile_tech]

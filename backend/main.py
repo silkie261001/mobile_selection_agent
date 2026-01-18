@@ -13,7 +13,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from typing import Optional
 
-from .agent.agent_builder import get_agent, ShoppingAgent
+from agent.agent_builder import get_agent, ShoppingAgent
 
 
 # Configure logging
