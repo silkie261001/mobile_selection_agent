@@ -39,21 +39,22 @@ An AI-powered shopping assistant that helps customers discover, compare, and cho
 ```
 mobile-shopping-agent/
 ├── backend/
-│   ├── app/
-│   │   ├── agent/
-│   │   │   ├── agent_builder.py
-│   │   │   ├── prompts.py
-│   │   │   └── tools.py
-│   │   ├── data/
-│   │   │   ├── phones.json
-│   │   │   └── phone_service.py
-│   │   └── main.py
-│   └── requirements.txt
+│   ├── main.py                # FastAPI entry point
+│   ├── requirements.txt       # Python dependencies
+│   ├── agent/
+│   │   ├── __init__.py
+│   │   ├── agent_builder.py   # LLM agent with streaming support
+│   │   ├── prompts.py         # System prompts + safety rules
+│   │   └── tools.py           # 4 tools (search, details, compare, explain)
+│   └── data/
+│       ├── __init__.py
+│       ├── phones.json        # Phone database (50+ phones)
+│       └── phone_service.py   # Database queries & filtering
 ├── frontend/
 │   ├── src/
-│   │   ├── app/
-│   │   ├── components/
-│   │   └── types/
+│   │   ├── app/               # Next.js app router
+│   │   ├── components/        # React components
+│   │   └── types/             # Shared TypeScript interfaces
 │   └── package.json
 └── README.md
 ```
