@@ -1,19 +1,7 @@
 'use client';
 
 import { Check, Star, Battery, Camera, Monitor, Info } from 'lucide-react';
-
-interface Phone {
-  id: string;
-  name: string;
-  brand: string;
-  price: number;
-  image_url: string;
-  display: string;
-  camera: string;
-  battery: string;
-  rating: number;
-  highlights: string[];
-}
+import { Phone } from '@/types';
 
 interface PhoneCardProps {
   phone: Phone;

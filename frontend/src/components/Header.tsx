@@ -8,11 +8,12 @@ interface HeaderProps {
 }
 
 export function Header({ onClearChat }: HeaderProps) {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
-    const isDarkMode = document.documentElement.classList.contains('dark');
-    setIsDark(isDarkMode);
+    // Set dark mode by default on first load
+    document.documentElement.classList.add('dark');
+    setIsDark(true);
   }, []);
 
   const toggleDarkMode = () => {

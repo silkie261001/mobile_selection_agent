@@ -6,33 +6,14 @@ import { ChatInput } from '@/components/ChatInput';
 import { PhoneCard } from '@/components/PhoneCard';
 import { Header } from '@/components/Header';
 import { SuggestedQueries } from '@/components/SuggestedQueries';
-
-interface Message {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-  phones?: Phone[];
-  timestamp: Date;
-}
-
-interface Phone {
-  id: string;
-  name: string;
-  brand: string;
-  price: number;
-  image_url: string;
-  display: string;
-  camera: string;
-  battery: string;
-  rating: number;
-  highlights: string[];
-}
+import { Message, Phone } from '@/types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [selectedPhones, setSelectedPhones] = useState<Phone[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -57,49 +38,127 @@ export default function Home() {
 
     setMessages((prev) => [...prev, userMessage]);
     setIsLoading(true);
+    setStatusMessage('Thinking...');
 
     try {
-      const response = await fetch(`${API_URL}/api/chat`, {
-        method: 'POST',
+      // Use streaming endpoint with fetch (better CORS support than EventSource)
+      const params = new URLSearchParams({
+        message: content,
+        ...(sessionId && { session_id: sessionId }),
+      });
+
+      const response = await fetch(`${API_URL}/api/chat/stream?${params}`, {
+        method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
+          'Accept': 'text/event-stream',
         },
-        body: JSON.stringify({
-          message: content,
-          session_id: sessionId,
-        }),
       });
 
       if (!response.ok) {
         throw new Error('Failed to get response');
       }
 
-      const data = await response.json();
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
 
-      if (!sessionId) {
-        setSessionId(data.session_id);
+      if (!reader) {
+        throw new Error('No reader available');
       }
 
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: data.response,
-        phones: data.phones,
-        timestamp: new Date(),
-      };
+      let buffer = '';
 
-      setMessages((prev) => [...prev, assistantMessage]);
+      while (true) {
+        const { done, value } = await reader.read();
+
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+
+        // Process complete SSE events from buffer
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || ''; // Keep incomplete line in buffer
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.slice(6));
+
+              if (data.type === 'status') {
+                // Update the status message with LLM-generated text
+                setStatusMessage(data.message);
+              } else if (data.type === 'complete') {
+                // Final response received
+                if (!sessionId && data.session_id) {
+                  setSessionId(data.session_id);
+                }
+
+                const assistantMessage: Message = {
+                  id: (Date.now() + 1).toString(),
+                  role: 'assistant',
+                  content: data.response,
+                  phones: data.phones,
+                  timestamp: new Date(),
+                };
+
+                setMessages((prev) => [...prev, assistantMessage]);
+                setIsLoading(false);
+                setStatusMessage('');
+              }
+            } catch (e) {
+              console.error('Error parsing SSE data:', e);
+            }
+          }
+        }
+      }
     } catch (error) {
-      console.error('Error sending message:', error);
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: 'Sorry, I encountered an error. Please try again.',
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, errorMessage]);
-    } finally {
-      setIsLoading(false);
+      console.error('Error with streaming, falling back to regular chat:', error);
+
+      // Fallback to regular chat endpoint
+      try {
+        setStatusMessage('Processing...');
+        const response = await fetch(`${API_URL}/api/chat`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: content,
+            session_id: sessionId,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to get response');
+        }
+
+        const data = await response.json();
+
+        if (!sessionId) {
+          setSessionId(data.session_id);
+        }
+
+        const assistantMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: data.response,
+          phones: data.phones,
+          timestamp: new Date(),
+        };
+
+        setMessages((prev) => [...prev, assistantMessage]);
+      } catch (fallbackError) {
+        console.error('Fallback also failed:', fallbackError);
+        const errorMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: 'Sorry, I encountered an error. Please try again.',
+          timestamp: new Date(),
+        };
+        setMessages((prev) => [...prev, errorMessage]);
+      } finally {
+        setIsLoading(false);
+        setStatusMessage('');
+      }
     }
   };
 
@@ -184,13 +243,21 @@ export default function Home() {
               {isLoading && (
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-white text-sm font-medium">
-                    AI
+                    <svg className="w-5 h-5 spinner" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
                   </div>
                   <div className="bg-white dark:bg-slate-800 rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
-                    <div className="flex gap-1">
-                      <div className="w-2 h-2 bg-slate-400 rounded-full typing-dot"></div>
-                      <div className="w-2 h-2 bg-slate-400 rounded-full typing-dot"></div>
-                      <div className="w-2 h-2 bg-slate-400 rounded-full typing-dot"></div>
+                    <div className="flex items-center gap-3">
+                      <div className="flex gap-1">
+                        <div className="w-2 h-2 bg-primary-500 rounded-full typing-dot"></div>
+                        <div className="w-2 h-2 bg-primary-500 rounded-full typing-dot"></div>
+                        <div className="w-2 h-2 bg-primary-500 rounded-full typing-dot"></div>
+                      </div>
+                      <span className="text-sm text-slate-500 dark:text-slate-400 pulse-text">
+                        {statusMessage || 'Thinking...'}
+                      </span>
                     </div>
                   </div>
                 </div>
