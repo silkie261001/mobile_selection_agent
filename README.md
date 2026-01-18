@@ -1,10 +1,11 @@
 # Mobile Shopping Chat Agent
 
-An AI-powered shopping assistant that helps customers discover, compare, and choose mobile phones. Built with FastAPI, LangChain, Google Gemini, and Next.js.
+An AI-powered shopping assistant that helps customers discover, compare, and choose mobile phones. Built with FastAPI, LangChain, Google Gemini, Ollama and Next.js.
 
 ## Live Demo
 
 - **Frontend**: https://mobile-agent-alpha.vercel.app/
+- **Complete End to End Demp**: LINK
 
 ## Features
 
@@ -21,6 +22,7 @@ An AI-powered shopping assistant that helps customers discover, compare, and cho
 - Phone comparison selection
 - Dark/light mode toggle
 - Suggested query shortcuts
+- Thinking of LLM as streaming
 
 ## Tech Stack
 
